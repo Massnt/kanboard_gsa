@@ -19,18 +19,15 @@ class KanboardHookService:
         
         if data.get('event_name') == 'task.update':
             if changes.get('color_id') == 'green' and task.get('column_id') == int(os.getenv('KANBOARD_COL_EM_PRODUCAO')):
-                print("FINALIZADO")
-                #return self.handle_task_update(task, 'RC')
+                return self.handle_task_update(task, 'RC')
             
             if changes.get('category_id') == os.getenv('KANBOARD_REPROVADO_ID'):
-                print("REPROVADO")
                 self._kb.execute('moveTaskPosition', project_id=1, task_id=task.get('id'), column_id=5, position=1, swimlane_id=1)
-                #return self.handle_task_update(task, 'RP')
+                return self.handle_task_update(task, 'RP')
             
         if data.get('event_name') == 'task.move.column' and changes.get('dst_column_id') == os.getenv('KANBOARD_COL_REPROVADO'):
-            print("REPROVADO")
             self._kb.execute('updateTask', id=task.get('id'), category_id='4')
-            #return self.handle_task_update(task, 'RP')
+            return self.handle_task_update(task, 'RP')
 
         return {'status': 'error'}, 405
     
