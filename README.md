@@ -32,12 +32,12 @@ Na pasta do projeto existe o arquivo .env.example, onde deve ser configurado alg
   * A porta em que a aplicação irá rodar.
 No Kanboard é necessário configurar a url do webhook que vai escutar os eventos, no caso será
 está aplicação. Por padrão a aplicação flask roda nos seguintes endereços:
-´´´
+```
 http://localhost:PORTA_ESCOLHIDA
-´´´  
-´´´
+```  
+```
 http://127.0.0.1:PORTA_ESCOLHIDA
-´´´  
+```
 ## Execução
 Para executar o projeto é simples, basta rodar o seguinte código dentro da pasta kanboard_gsa:
 ```
