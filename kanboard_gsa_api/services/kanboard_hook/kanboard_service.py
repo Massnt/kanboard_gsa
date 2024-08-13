@@ -49,8 +49,6 @@ class KanboardHookService:
         
         dados = self.construir_dados(task, resultado_cliente, resultado_atendente, acao)
         
-        pprint.pp(dados)
-        
         resultado = gsa_api_service.finalizar_chamado(dados)
         
         if resultado.get('status') == 'success':
@@ -65,7 +63,14 @@ class KanboardHookService:
     
     def get_cliente_e_atendente(self, gsa_api_service, cliente_nome, atendente_nome):
         resultado_cliente = gsa_api_service.get_cliente(cliente_nome)
+        
+        usuario = self._kb.execute('getUserByName', username=atendente_nome)
+        
+        if usuario:
+            atendente_nome = usuario.get('name')
+        
         resultado_atendente = gsa_api_service.get_atendente(atendente_nome)
+        
         return resultado_cliente, resultado_atendente
     
     def construir_dados(self, task, resultado_cliente, resultado_atendente, acao):
